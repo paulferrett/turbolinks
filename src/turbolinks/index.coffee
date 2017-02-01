@@ -17,7 +17,6 @@
   clearCache: ->
     Turbolinks.controller.clearCache()
 
-  changeURL: (location) ->
-    Turbolinks
-      .controller
-      .pushHistoryWithLocationAndRestorationIdentifier(location, Turbolinks.uuid())
+  changeURL: (location, options = {}) ->
+    method = if "replace" == (options.action ? 'advance') then 'replaceHistoryWithLocationAndRestorationIdentifier' else 'pushHistoryWithLocationAndRestorationIdentifier'
+    Turbolinks.controller[method](location, Turbolinks.uuid())
